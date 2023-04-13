@@ -91,7 +91,8 @@ public class ClientRestTest{
 			ObjectMapper objectMapper = new ObjectMapper();
 			Joke joke = objectMapper.readValue(responseBody.toString(), Joke.class);
 
-			System.out.println("Blague : " + joke.getJoke());
+			System.out.println("Blague : " + joke.getQuestion());
+			System.out.println("Reponse:"+joke.getAnswer());
 		}
 	}
 }

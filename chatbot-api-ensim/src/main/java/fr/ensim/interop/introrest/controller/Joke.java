@@ -2,24 +2,31 @@ package fr.ensim.interop.introrest.controller;
 
 public class Joke {
 
-        private String joke;
-        private String answer;
+    private String question;
+    private String answer;
 
-        public String getJoke() {
-            return joke;
-        }
+    public Joke() {}
 
-        public void setJoke(String joke) {
-            this.joke = joke;
-        }
+    public Joke(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
 
-        public String getAnswer() {
-            return answer;
-        }
+    public String getQuestion() {
+        return question;
+    }
 
-        public void setAnswer(String answer) {
-            this.answer = answer;
-        }
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
     }
 
 
