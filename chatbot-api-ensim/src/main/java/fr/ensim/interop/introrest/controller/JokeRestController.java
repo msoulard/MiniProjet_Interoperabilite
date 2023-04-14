@@ -41,8 +41,12 @@ public class JokeRestController {
 
             if (jokes != null && !jokes.isEmpty()) {
                 for (Joke joke : jokes) {
+                    System.out.println(joke.getid());
+                    System.out.println(joke.getTitre());
                     System.out.println(joke.getQuestion());
                     System.out.println(joke.getAnswer());
+                    System.out.print(joke.getNote());
+
                 }
             }
         }

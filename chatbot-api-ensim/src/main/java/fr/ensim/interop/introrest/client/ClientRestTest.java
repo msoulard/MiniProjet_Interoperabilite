@@ -57,10 +57,10 @@ public class ClientRestTest{
 				String dateStr = (String) weatherItem.get("dt_txt");
 				LocalDateTime date = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 				Map<String, Object> mainData = (Map<String, Object>) weatherItem.get("main");
-				Double temp = (Double) mainData.get("temp");
+				Number temp = (Number) mainData.get("temp");
 				Double feelsLike = (Double) mainData.get("feels_like");
-				Double tempMin = (Double) mainData.get("temp_min");
-				Double tempMax = (Double) mainData.get("temp_max");
+				Number tempMin = (Number) mainData.get("temp_min");
+				Number tempMax = (Number) mainData.get("temp_max");
 				Integer pressure = (Integer) mainData.get("pressure");
 				Integer humidity = (Integer) mainData.get("humidity");
 				System.out.println("Météo le " + date + " : température = " + temp + "°C, ressentie = " + feelsLike + "°C, min = " + tempMin + "°C, max = " + tempMax + "°C, pression = " + pressure + " hPa, humidité = " + humidity + "%");
@@ -90,9 +90,11 @@ public class ClientRestTest{
 			// Conversion de la réponse JSON en un objet Joke
 			ObjectMapper objectMapper = new ObjectMapper();
 			Joke joke = objectMapper.readValue(responseBody.toString(), Joke.class);
-
-			System.out.println("Blague : " + joke.getQuestion());
+			System.out.println("id : " + joke.getid());
+			System.out.println("Titre : " + joke.getTitre());
+			System.out.println("Question : " + joke.getQuestion());
 			System.out.println("Reponse:"+joke.getAnswer());
+			System.out.println("Note : " + joke.getNote());
 		}
 	}
 }
