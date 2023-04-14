@@ -1,0 +1,16 @@
+{
+  "joke": [
+    {
+      "question": "Why did the tomato turn red?",
+      "answer": "Because it saw the salad dressing!"
+    },
+    {
+      "question": "Why don't scientists trust atoms?",
+      "answer": "Because they make up everything."
+    },
+    {
+      "question": "What do you get when you cross a snowman and a shark?",
+      "answer": "Frostbite!"
+    }
+  ]
+}

@@ -36,8 +36,15 @@ public class Update implements BotApiObject {
 
     @JsonProperty(UPDATEID_FIELD)
     private Integer updateId;
+
+    public Integer getUpdateId() {
+        return updateId;
+    }
     @JsonProperty(MESSAGE_FIELD)
     private Message message; ///< Optional. New incoming message of any kind — text, photo, sticker, etc.
+    public Message getMessage() {
+        return message;
+    }
     @JsonProperty(EDITEDMESSAGE_FIELD)
     private Message editedMessage; ///< Optional. New version of a message that is known to the bot and was edited
     @JsonProperty(CHANNELPOST_FIELD)

@@ -99,6 +99,11 @@ public class Message implements BotApiObject {
 	private Integer forwardDate; ///< Optional. For forwarded messages, date the original message was sent
 	@JsonProperty(TEXT_FIELD)
 	private String text; ///< Optional. For text messages, the actual UTF-8 text of the message
+
+	public String getText() {
+		return text;
+	}
+
 	/**
 	 * Optional. For text messages, special entities like usernames, URLs,
 	 * bot commands, etc. that appear in the text
