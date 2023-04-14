@@ -11,11 +11,16 @@ public class weatherRestController {
 
     @Value("${telegram.api.url}")
     private String telegramApiUrl;
+    @Value("${open.weather.api.url}")
+    private  String weatherApiUrl;
+    @Value("${open.weather.api.token}")
+    private String token;
+    @Value("${open.weather.api.url.forecast}")
+    private String weatherApiUrlForecast;
 
     //Opérations sur la ressource Weather
 
-    private static final String API_URL_CURRENT = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s";
-    private static final String API_URL_FORECAST = "https://api.openweathermap.org/data/2.5/forecast?q=%s&appid=%s";
+
 
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -25,9 +30,9 @@ public class weatherRestController {
 
         String url;
         if (forecast) {
-            url = String.format(API_URL_FORECAST, city, apiKey);
+            url = String.format(weatherApiUrlForecast, city, apiKey);
         } else {
-            url = String.format(API_URL_CURRENT, city, apiKey);
+            url = String.format(weatherApiUrl, city, apiKey);
         }
 
         String response = restTemplate.getForObject(url, String.class);
