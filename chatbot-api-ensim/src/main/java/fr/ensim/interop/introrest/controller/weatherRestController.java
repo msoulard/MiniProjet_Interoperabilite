@@ -2,12 +2,11 @@ package fr.ensim.interop.introrest.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.ensim.interop.introrest.model.telegram.City;
-import fr.ensim.interop.introrest.model.telegram.Meteo;
+import fr.ensim.interop.introrest.data.City;
+import fr.ensim.interop.introrest.data.Meteo;
 
-import fr.ensim.interop.introrest.model.telegram.OpenWeather;
+import fr.ensim.interop.introrest.data.OpenWeather;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

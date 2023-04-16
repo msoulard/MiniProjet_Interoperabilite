@@ -1,4 +1,4 @@
-package fr.ensim.interop.introrest.model.telegram;
+package fr.ensim.interop.introrest.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

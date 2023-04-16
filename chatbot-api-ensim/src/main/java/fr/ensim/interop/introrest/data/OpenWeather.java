@@ -1,5 +1,7 @@
-package fr.ensim.interop.introrest.model.telegram;
+package fr.ensim.interop.introrest.data;
 
+
+import fr.ensim.interop.introrest.Main;
 
 import java.util.List;
 
