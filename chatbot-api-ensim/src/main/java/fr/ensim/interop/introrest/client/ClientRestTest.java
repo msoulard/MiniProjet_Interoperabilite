@@ -1,99 +1,49 @@
 package fr.ensim.interop.introrest.client;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.ensim.interop.introrest.data.Joke;
+import fr.ensim.interop.introrest.model.telegram.*;
+
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-public class ClientRestTest{
+
+public class ClientRestTest {
 
 	public static void main(String[] args) throws IOException {
 
-		String city = "paris";
-		String apiUrl = "http://localhost:9090/weather/" + city + "?forecast=true";
 
-		URL url = new URL(apiUrl);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.connect();
+		// Test de la méthode meteoByVille
+		RestTemplate restTemplate = new RestTemplate();
+		String url = "http://localhost:9090/meteo?ville=Nantes";
+		String response = restTemplate.getForObject(url, String.class);
+		System.out.println("Météo à Nantes : " + response);
 
-		int responseCode = conn.getResponseCode();
+		// Test de la méthode getWeather
+		String ville = "Nantes";
+		String urlforcast = "http://localhost:9090/forecast/" + ville + "?forecast=true";
+		RestTemplate restTemplate2 = new RestTemplate();
 
-		if (responseCode != 200) {
-			throw new RuntimeException("Erreur HTTP: " + responseCode);
-		} else {
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			StringBuilder responseBody = new StringBuilder();
-			String inputLine;
-			while ((inputLine = in.readLine()) != null) {
-				responseBody.append(inputLine);
-			}
-			in.close();
+		ResponseEntity<Meteo[]> responseEntity = restTemplate2.getForEntity(urlforcast, Meteo[].class);
+		Meteo[] meteos = responseEntity.getBody();
 
-			// Conversion de la réponse JSON en un objet Map<String, Object>
-			ObjectMapper objectMapper = new ObjectMapper();
-			Map<String, Object> weatherData = objectMapper.readValue(responseBody.toString(), new TypeReference<Map<String, Object>>() {});
+		System.out.println(Arrays.toString(meteos));
 
-			// Récupération des informations de la ville
-			Map<String, Object> cityData = (Map<String, Object>) weatherData.get("city");
-			String cityName = (String) cityData.get("name");
-			Double cityLat = (Double) ((Map<String, Object>) cityData.get("coord")).get("lat");
-			Double cityLon = (Double) ((Map<String, Object>) cityData.get("coord")).get("lon");
-			System.out.println("Informations sur la ville de " + cityName + " (latitude : " + cityLat + ", longitude : " + cityLon + ")");
-
-			// Récupération des informations météo
-			List<Map<String, Object>> weatherList = (List<Map<String, Object>>) weatherData.get("list");
-			for (Map<String, Object> weatherItem : weatherList) {
-				String dateStr = (String) weatherItem.get("dt_txt");
-				LocalDateTime date = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-				Map<String, Object> mainData = (Map<String, Object>) weatherItem.get("main");
-				Number temp = (Number) mainData.get("temp");
-				Double feelsLike = (Double) mainData.get("feels_like");
-				Number tempMin = (Number) mainData.get("temp_min");
-				Number tempMax = (Number) mainData.get("temp_max");
-				Integer pressure = (Integer) mainData.get("pressure");
-				Integer humidity = (Integer) mainData.get("humidity");
-				System.out.println("Météo le " + date + " : température = " + temp + "°C, ressentie = " + feelsLike + "°C, min = " + tempMin + "°C, max = " + tempMax + "°C, pression = " + pressure + " hPa, humidité = " + humidity + "%");
-			}
-		}
-
-		String apiUrlJoke = "http://localhost:9090/joke";
-		// Récupération d'une blague aléatoire depuis l'API Chuck Norris Jokes
-		url = new URL(apiUrlJoke);
-		conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.connect();
-
-		responseCode = conn.getResponseCode();
-
-		if (responseCode != 200) {
-			throw new RuntimeException("Erreur HTTP: " + responseCode);
-		} else {
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			StringBuilder responseBody = new StringBuilder();
-			String inputLine;
-			while ((inputLine = in.readLine()) != null) {
-				responseBody.append(inputLine);
-			}
-			in.close();
-
-			// Conversion de la réponse JSON en un objet Joke
-			ObjectMapper objectMapper = new ObjectMapper();
-			Joke joke = objectMapper.readValue(responseBody.toString(), Joke.class);
-			System.out.println("id : " + joke.getid());
-			System.out.println("Titre : " + joke.getTitre());
-			System.out.println("Question : " + joke.getQuestion());
-			System.out.println("Reponse:"+joke.getAnswer());
-			System.out.println("Note : " + joke.getNote());
-		}
 	}
 }
+
+
+
+
+
