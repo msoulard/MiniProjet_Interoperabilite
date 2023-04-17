@@ -1,13 +1,12 @@
 package fr.ensim.interop.introrest.controller;
 
+import fr.ensim.interop.introrest.data.MessageApi;
 import fr.ensim.interop.introrest.model.telegram.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 @RestController
 public class MessageRestController {
