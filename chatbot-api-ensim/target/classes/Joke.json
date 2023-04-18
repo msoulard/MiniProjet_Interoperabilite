@@ -1,0 +1,23 @@
+{
+  "joke": [
+    {
+      "id": 1,
+      "titre": "color",
+      "question": "Why did the tomato turn red?",
+      "answer": "Because it saw the salad dressing!",
+      "note": 10
+    },
+    { "id": 2,
+      "titre": "scientists",
+      "question": "Why don't scientists trust atoms?",
+      "answer": "Because they make up everything.",
+      "note": 8
+    },
+    { "id": 3,
+      "titre": "snow",
+      "question": "What do you get when you cross a snowman and a shark?",
+      "answer": "Frostbite!",
+      "note": 5
+    }
+  ]
+}
