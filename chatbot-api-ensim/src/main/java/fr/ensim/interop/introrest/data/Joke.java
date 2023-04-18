@@ -46,20 +46,6 @@ public class Joke {
     {
         return note;
     }
-    public void setNote(int note)
-    {
-        this.note=note;
-    }
-
-    public void ChangeNoteBlague(int _note) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ClassPathResource classPathResource = new ClassPathResource("Joke.json");
-        InputStream inputStream = classPathResource.getInputStream();
-        JsonNode jsonNode = objectMapper.readTree(inputStream);
-        int noteChange = (note+_note)/2;
-        objectMapper.writeValue(new File(classPathResource.getFile().toURI()), noteChange);
-
-    }
 }
 
 

@@ -127,9 +127,8 @@ public class ListenerUpdateTelegram implements CommandLineRunner {
 												throw new RuntimeException(e);
 											}
 											ResponseEntity<ApiResponseUpdateTelegram> reponseNote = controllerMessage.getUpdates(offsetBis);
-											int note = Integer.parseInt(reponseNote.getBody().getResult().get(0).getMessage().getText());
-											note = (note + reponseJoke.getBody().getNote())/2;
-											reponseJoke.getBody().setNote(note);
+											/*int note = Integer.parseInt(reponseNote.getBody().getResult().get(0).getMessage().getText());
+											reponseJoke.getBody().setNote(note);*/
 											controllerMessage.sendMessage(new MessageApi(0L, "Merci d'avoir donné une note. Voici la nouvelle note : "+reponseJoke.getBody().getNote()));
 											break;
 										case "non":
