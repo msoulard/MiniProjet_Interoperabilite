@@ -1,8 +1,6 @@
 package fr.ensim.interop.introrest.data;
 
 
-import fr.ensim.interop.introrest.Main;
-
 import java.util.List;
 
 public class OpenWeather {

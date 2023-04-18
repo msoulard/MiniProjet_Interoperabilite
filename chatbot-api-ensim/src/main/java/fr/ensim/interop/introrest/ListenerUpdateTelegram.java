@@ -35,8 +35,6 @@ public class ListenerUpdateTelegram implements CommandLineRunner {
 		TimerTask task = new TimerTask() {
 			public void run() {
 				List<String> messagesATraiter = new ArrayList<>();
-
-
 				ResponseEntity<ApiResponseUpdateTelegram> reponseGet = controller.getUpdates(offsetBis);
 				offset = reponseGet.getBody().getResult().get(0).getUpdateId();
 				offsetBis = offset.intValue();
@@ -53,7 +51,7 @@ public class ListenerUpdateTelegram implements CommandLineRunner {
 								// Si la commande "meteo" n'a pas de paramètre de ville, envoyez un message d'erreur
 								controller.sendMessage(new MessageApi(0L, "Veuillez entrer une ville pour la météo, ex : meteo Paris"));
 							} else {
-								// Sinon, récupérez le paramètre de ville et utilisez-le dans l'appel à l'API météo
+								// Sinon, recuperez le paramètre de ville et utilisez-le dans l'appel à l'API météo
 								String city = messagesATraiter.get(1);
 								String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid="+token;
 								RestTemplate restTemplate = new RestTemplate();

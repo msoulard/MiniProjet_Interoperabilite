@@ -1,10 +1,15 @@
 package fr.ensim.interop.introrest.data;
 
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.FileReader;
+import java.io.InputStream;
 import java.util.Random;
 
 public class Joke {
@@ -65,13 +70,20 @@ public class Joke {
         this.note=note;
     }
 
+
     public static Joke getRandomJoke() {
         try {
             // Ouverture du fichier JSON contenant les blagues
-            FileReader reader = new FileReader("path/to/your/json/file.json");
+            ClassPathResource classPathResource = new ClassPathResource("Joke.json");
+            InputStream inputStream = classPathResource.getInputStream();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(inputStream);
+            JsonNode jokeNode = jsonNode.get("joke");
+
+            // Lecture du fichier JSON contenant les blagues
+            FileReader reader = new FileReader("Joke.json");
             JSONParser jsonParser = new JSONParser(reader);
-            Object obj = jsonParser.parse();
-            JSONArray jokesArray = (JSONArray) obj;
+            JSONArray jokesArray = (JSONArray) jsonParser.parse();
 
             // Sélection aléatoire d'une blague
             Random rand = new Random();
@@ -87,6 +99,7 @@ public class Joke {
             return null;
         }
     }
+
 }
 
 

@@ -1,4 +1,4 @@
-package fr.ensim.interop.introrest;
+package fr.ensim.interop.introrest.data;
 
 public class Main {
     private String temp;
