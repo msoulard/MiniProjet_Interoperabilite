@@ -1,7 +1,10 @@
 package fr.ensim.interop.introrest;
 
+import fr.ensim.interop.introrest.controller.JokeRestController;
 import fr.ensim.interop.introrest.controller.MessageRestController;
+import fr.ensim.interop.introrest.controller.weatherRestController;
 import fr.ensim.interop.introrest.data.Joke;
+import fr.ensim.interop.introrest.data.Meteo;
 import fr.ensim.interop.introrest.model.telegram.ApiResponseUpdateTelegram;
 import fr.ensim.interop.introrest.data.MessageApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -47,26 +51,26 @@ public class ListenerUpdateTelegram implements CommandLineRunner {
 					Logger.getLogger("ListenerUpdateTelegram").log(Level.INFO, "message à traiter = "+ command);
 					switch (command) {
 						case COMMAND_METEO:
-							if (messagesATraiter.size() < 2) {
-								// Si la commande "meteo" n'a pas de paramètre de ville, envoyez un message d'erreur
-								controller.sendMessage(new MessageApi(0L, "Veuillez entrer une ville pour la météo, ex : meteo Paris"));
-							} else {
-								// Sinon, recuperez le paramètre de ville et utilisez-le dans l'appel à l'API météo
-								String city = messagesATraiter.get(1);
-								String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid="+token;
-								RestTemplate restTemplate = new RestTemplate();
-								ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
-								controller.sendMessage(new MessageApi(0L, response.getBody()));
-							}
+							weatherRestController weatherController= null;
+							weatherController= new weatherRestController();
+							ResponseEntity<List<Meteo>> response = weatherController.getWeather("ville", true);
+							List<Meteo> meteos = response.getBody();
 							offsetBis++;
 							messagesATraiter.remove(0);
 							break;
 						case COMMAND_BLAGUE:
-							Joke blague = Joke.getRandomJoke();
-							String question = blague.getQuestion();
+							JokeRestController jokeController = null;
+							try {
+								jokeController = new JokeRestController();
+							} catch (IOException e) {
+								throw new RuntimeException(e);
+							}
+							Joke joke = jokeController.getJoke().getBody();
+							String question = joke.getQuestion();
 							controller.sendMessage(new MessageApi(0L, question));
-							String reponse=blague.getAnswer();
+							String reponse= joke.getAnswer();
 							controller.sendMessage(new MessageApi(0L, reponse));
+
 							offsetBis++;
 							messagesATraiter.remove(0);
 							break;
