@@ -70,7 +70,6 @@ public class ListenerUpdateTelegram implements CommandLineRunner {
 							controller.sendMessage(new MessageApi(0L, question));
 							String reponse= joke.getAnswer();
 							controller.sendMessage(new MessageApi(0L, reponse));
-
 							offsetBis++;
 							messagesATraiter.remove(0);
 							break;

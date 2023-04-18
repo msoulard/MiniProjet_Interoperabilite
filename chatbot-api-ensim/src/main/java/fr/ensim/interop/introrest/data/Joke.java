@@ -69,36 +69,7 @@ public class Joke {
     {
         this.note=note;
     }
-
-
-    public static Joke getRandomJoke() {
-        try {
-            // Ouverture du fichier JSON contenant les blagues
-            ClassPathResource classPathResource = new ClassPathResource("Joke.json");
-            InputStream inputStream = classPathResource.getInputStream();
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(inputStream);
-            JsonNode jokeNode = jsonNode.get("joke");
-
-            // Lecture du fichier JSON contenant les blagues
-            FileReader reader = new FileReader("Joke.json");
-            JSONParser jsonParser = new JSONParser(reader);
-            JSONArray jokesArray = (JSONArray) jsonParser.parse();
-
-            // Sélection aléatoire d'une blague
-            Random rand = new Random();
-            int randomIndex = rand.nextInt(jokesArray.length());
-            JSONObject jokeObj = (JSONObject) jokesArray.get(randomIndex);
-
-            // Création de l'objet Joke
-            String question = (String) jokeObj.get("question");
-            String answer = (String) jokeObj.get("answer");
-            return new Joke(question, answer);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    
 
 }
 
